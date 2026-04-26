@@ -27,11 +27,6 @@ void checkTask() {
     request.port = 443;
     request.path = "/check-task?taskId=YOUR_TASK_ID";
 
-    // If calling Google directly (with valid token):
-    // request.hostname = "tasks.googleapis.com";
-    // request.port = 443;
-    // request.path = "/tasks/v1/lists/@default/tasks/TASK_ID";
-
     http.get(request, response, headers);
 
     Serial.printlnf("Status: %d", response.status);
@@ -48,7 +43,3 @@ void checkTask() {
     }
 }
 
-
-// particle library add HttpClient
-// # Also useful:
-// particle library add JsonParserGeneratorRK
