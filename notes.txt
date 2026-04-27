@@ -1,0 +1,8 @@
+libraries that are used are jsonparser and HTTPclient 
+    -python does not need to be used for this project, it was but there was an alternative from proton themselves
+    This process was tedious for no reason 
+
+        Side note,
+            using python was a bad idea. There was a much simpler way of going about this
+            its using the same method but just with the IOT. this was such a headache
+        
