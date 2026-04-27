@@ -44,6 +44,6 @@ libraries--
     Add libraries
     // particle library add HttpClient
     // particle library add JsonParserGeneratorRK
-      --thoughts
+      <!-- --thoughts
         I couldn't think between whether if I should've used python or javascript, but since python has more user support and guides, I followed through with python.
-        
+         --> This is obsolete, using python was a bad idea. There was a much simpler way of going about this, its using the same method but just with the IOT. this was such  a headache
