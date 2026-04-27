@@ -4,7 +4,7 @@
 HttpClient http;
 http_header_t headers[] = {
     { "Content-Type", "application/json" },
-    { "Authorization", "Bearer YOUR_ACCESS_TOKEN" }, // or handled by middleware
+    { "Authorization", "Bearer YOUR_ACCESS_TOKEN" }, // handled by middleware
     { NULL, NULL }
 };
 
@@ -18,7 +18,7 @@ void setup() {
 
 void loop() {
     checkTask();
-    delay(30000); // Check every 30 seconds
+    delay(60000); // Check every 60 seconds
 }
 
 void checkTask() {
