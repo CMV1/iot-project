@@ -1,4 +1,5 @@
-libraries that are used are jsonparser and HTTPclient 
+libraries that are used are jsonparser 
+         HTTPclient <- my photon CRASHED everytime i tried this lib 
     -python does not need to be used for this project, it was but there was an alternative from proton themselves
     This process was tedious for no reason 
 
@@ -10,3 +11,13 @@ libraries that are used are jsonparser and HTTPclient
         well after like 1000 fails, i threw away my whole code cause it wasnt working, I looked for a new solution which was webhooking. 
         basically, IOT request to public cloud with a bunch of rules,  the rules asks for objects, and it gets objects.
         also google doesnt like it if you are begging every 10 seconds  lolol
+
+        PLEASE DO NOT USE DIGITAL ANALOG FOR SOUND
+        A0 -A5  WORKS PERFECTLY FINE
+
+        THE SCREEN PMO LIKE IT GENUINELY MADE MY BRAIN EXPLODE 
+        like it was easy to implement because it would use screen print
+        BUT STILL I LOST IT BECUASE IT NEEDED D0 and D1 
+        AND THEN I DIDNT CHANGE MY OTHER VARIABLES FOR IT
+        AND I JUST COULDNT 
+        

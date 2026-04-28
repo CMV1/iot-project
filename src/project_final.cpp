@@ -15,6 +15,7 @@ bool soundPlaying = false;
 // --- NEW CLOUD VARIABLES ---
 String cloudStatus = "Idle";
 String lastEventDate = "None";
+String eventnamed = "None";
 int cloudSoundState = 0; 
 
 void calendarHandler(const char *event, const char *data);
@@ -27,6 +28,7 @@ void setup() {
     Particle.variable("status", cloudStatus);
     Particle.variable("lastEvent", lastEventDate);
     Particle.variable("isSounding", cloudSoundState);
+    Particle.variable("eventname", eventnamed);
 
     display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
     display.clearDisplay();
@@ -90,18 +92,50 @@ void calendarHandler(const char *event, const char *data) {
     }
 
     String response = String(data);
-    int dateIndex = response.indexOf("\"Date\": \"");
-    
+
+    int nameIndex = -1;
+    int itemsIndex = response.indexOf("\"items\"");
+    if (itemsIndex != -1) {
+        nameIndex = response.indexOf("\"summary\"", itemsIndex);
+    }
+    if (nameIndex == -1) {
+        nameIndex = response.indexOf("\"summary\"");
+    }
+    if (nameIndex != -1) {
+        int colonPos = response.indexOf(":", nameIndex);
+        if (colonPos != -1) {
+            int quoteStart = response.indexOf("\"", colonPos);
+            if (quoteStart != -1) {
+                int quoteEnd = response.indexOf("\"", quoteStart + 1);
+                if (quoteEnd != -1) {
+                    eventnamed = response.substring(quoteStart + 1, quoteEnd);
+                }
+            }
+        }
+    }
+
+    int dateIndex = response.indexOf("\"start\":\"");
     if (dateIndex != -1) {
-        int startPos = dateIndex + 8;
+        int startPos = dateIndex + 9;
         int endPos = response.indexOf("\"", startPos);
-        
         if (endPos != -1) {
             lastEventDate = response.substring(startPos, endPos); // Store for Cloud
-            
             if (!soundPlaying) {
-                tone(speakerPin, 700); 
+                tone(speakerPin, 700);
                 soundPlaying = true;
+            }
+        }
+    } else {
+        int oldDateIndex = response.indexOf("\"Date\": \"");
+        if (oldDateIndex != -1) {
+            int startPos = oldDateIndex + 9;
+            int endPos = response.indexOf("\"", startPos);
+            if (endPos != -1) {
+                lastEventDate = response.substring(startPos, endPos); // Store for Cloud
+                if (!soundPlaying) {
+                    tone(speakerPin, 700);
+                    soundPlaying = true;
+                }
             }
         }
     }

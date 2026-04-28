@@ -4,19 +4,83 @@
     <meta charset="UTF-8">
     <title>IoT Project</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particle-api-js@8/dist/particle.min.js"></script>
 </head>
 <body class="height">
     <div class="box">
-    <h1 class="font1 underline">Welcome to the IoT Project: Alarm Task</h1>
-    <div class="split font3" style="">
-    <div> This project demonstrates the use of a microcontroller to control an OLED display and a speaker based on button input.</div> 
-    <div style="margin-left: 30px;">When the button is pressed, the OLED display will show a message and the speaker will play a sound. When the button is released, the display will clear and the sound will stop.</div>
-    <div style="margin-left: 30px;">Since this is an example, we have sped up the code to run every 30 seconds to alert the user. </div>
-</div>
-</div>
-<div class="photon_stuff font1">
-    <div style="margin-top: 5px;">Real Time updates:</div>
-    <div id="display"> </div>
+        <h1 class="font1 underline">Welcome to the IoT Project: Alarm Task</h1>
+        <div class="split font3">
+            <div>This project demonstrates the use of a microcontroller to control an OLED display and a speaker based on button input.</div> 
+            <div style="margin-left: 30px;">When the button is pressed, the OLED display will show a message and the speaker will play a sound. When the button is released, the display will clear and the sound will stop.</div>
+            <div style="margin-left: 30px;">Since this is an example, we have sped up the code to run every 30 seconds to alert the user.</div>
+            <div style="margin-left: 30px; margin-right:-20px; color:red;">Notice:</div>
+            <div style="margin-left: 30px; font-weight: bold;">When you complete a task, please remove it from the google calendar to prevent unnecessary alerts.</div>
+        </div>
+    </div>
+    
+    <div class="photon_stuff font1">
+        <div style="margin-top: 5px;">Real Time updates:</div>
+        <div id="display">
+            <!-- Display elements for the variables -->
+            <p><strong>Status:</strong> <span id="status">-</span></p>
+            <p><strong>Event Name:</strong> <span id="eventName">-</span></p>
+            <p><strong>Last Event:</strong> <span id="lastEvent">-</span></p>
+            <div class = "split">
+            <p><strong>Is Playing Sound:</strong> <span id="isSounding">-</span></p>
+        </div> 1 = yes, 0 = no
+      </div>
+        
+        <button id="connectbutton" class="button" onclick="start()">Refresh Data</button>
+    </div>
 
+    <script>
+        // Configuration - must be defined before use
+        var deviceID = "0a10aced202194944a06a264";
+        var accessToken = "5931df5ebbec8d65811853a01e5bd2a6eec32471";
+        var baseURL = "https://api.particle.io/v1/devices/";
+
+        function start() {
+            var varName = "status";
+            $.ajax({
+                url: baseURL + deviceID + '/' + varName,
+                headers: {'Authorization': 'Bearer ' + accessToken},
+                method: 'GET',
+                success: function(resp) {
+                    document.getElementById("status").innerText = resp.result;
+                },
+            });
+
+             var varName = "eventName";
+            $.ajax({
+                url: baseURL + deviceID + '/' + varName,
+                headers: {'Authorization': 'Bearer ' + accessToken},
+                method: 'GET',
+                success: function(resp) {
+                    document.getElementById("eventName").innerText = resp.result;
+                },
+            });
+
+            var varName = "lastEvent";
+            $.ajax({
+                url: baseURL + deviceID + '/' + varName,
+                headers: {'Authorization': 'Bearer ' + accessToken},
+                method: 'GET',
+                success: function(resp) {
+                    document.getElementById("lastEvent").innerText = resp.result;
+                },
+            });
+
+            var varName = "isSounding";
+            $.ajax({
+                url: baseURL + deviceID + '/' + varName,
+                headers: {'Authorization': 'Bearer ' + accessToken},
+                method: 'GET',
+                success: function(resp) {
+                    document.getElementById("isSounding").innerText = resp.result;
+                },
+            });
+        }
+    </script>
 </body>
 </html>
