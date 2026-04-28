@@ -4,5 +4,8 @@
     "files.associations": {
         "*.ino": "cpp"
     },
-    "particle.targetDevice": "Nermal"
+    "particle.targetDevice": "Nermal",
+    "particle.targetPlatform": "p2",
+    "particle.firmwareVersion": "6.4.0",
+    "C_Cpp.errorSquiggles": "disabled"
 }

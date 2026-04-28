@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "googleapis": "^171.4.0"
+  },
+  "name": "iot-project",
+  "version": "1.0.0",
+  "description": "This project is the foundation for a modern task alarm. \r The function of this device is to alert the user to know when their task is due or upcoming\r   How it works\r     -The Photon is constantly requesting a task from google's API (This is within time reason)\r     -photon request -> middle man -> Server  \r     -When time is around 1 hour, the middle man will activate asking the server for the time then information gets sent back to the photon.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CMV1/iot-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/CMV1/iot-project/issues"
+  },
+  "homepage": "https://github.com/CMV1/iot-project#readme"
+}

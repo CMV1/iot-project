@@ -5,4 +5,8 @@ libraries that are used are jsonparser and HTTPclient
         Side note,
             using python was a bad idea. There was a much simpler way of going about this
             its using the same method but just with the IOT. this was such a headache
-        
+        4/27/26
+        There are certain libraries that do not work with the photon 2 due to storage and memory 
+        well after like 1000 fails, i threw away my whole code cause it wasnt working, I looked for a new solution which was webhooking. 
+        basically, IOT request to public cloud with a bunch of rules,  the rules asks for objects, and it gets objects.
+        also google doesnt like it if you are begging every 10 seconds  lolol

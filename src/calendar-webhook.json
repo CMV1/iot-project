@@ -1,0 +1,17 @@
+{
+  "event": "check_calendar",
+  "url": "https://www.googleapis.com/calendar/v3/calendars/primary/events",
+  "requestType": "GET",
+  "noDefaults": true,
+  "query": {
+    "timeMin": "{{PARTICLE_PUBLISHED_AT}}",
+    "maxResults": "5",
+    "orderBy": "startTime",
+    "singleEvents": "true"
+  },
+  "headers": {
+    "Authorization": "Bearer ya29.a0AQvPyIP-G6EiJTJlMFCMSUfKyvIxVkntYf5PauD1RFpudtO8OO8rxzRJ7yjguOKAyL4tSBKtu_aeG5DBSxHxTwisZ8SK8BKoFlmYXptuTLZsYU6_LIPBFAdAT9tge0TyB5DCY_EDKWUdtZw4mjWhclkEiUm8df04iRu5iDBwkDpezKAm68-1niG1kVJBXF-IKt9q75QaCgYKAWkSARMSFQHGX2MiR8lGEfQN3wuFYGp3BpXZXA0206",
+    "Content-Type": "application/json"
+  },
+  "responseTemplate": "{\"events\":[{{#items}}{\"summary\":\"{{{summary}}}\",\"start\":\"{{{start.dateTime}}}\"}{{^@last}},{{/@last}}{{/items}}]}"
+}

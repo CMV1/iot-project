@@ -1,64 +1,120 @@
 #include "Particle.h"
-#include "HttpClient.h"
-#include "JsonParserGeneratorRK.h"
-JsonParser parser;
+#include "Adafruit_GFX.h"
+#include "Adafruit_SSD1306_RK.h" // Use the RK version for Photon 2 stability
 
-HttpClient http;
-http_header_t headers[] = {
-    { "Content-Type", "application/json" },
-    { "Authorization", "Bearer YOUR_ACCESS_TOKEN" },
-    { NULL, NULL }
-};
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET    -1
 
-http_request_t request;
-http_response_t response;
+// FIXED CONSTRUCTOR: This tells the Photon to use I2C (Wire)
+Adafruit_SSD1306 display(OLED_RESET);
 
-void checkCalendar() {
-    request.hostname = "www.googleapis.com";
-    request.port = 443;
-    request.path = "/calendar/v3/calendars/c_3fe405c6ca6b844a9a8fd605ae2327d226d49c93757f85bd1ecd42fc9c322d54@group.calendar.google.com/events"
-                   "?timeMin=2026-04-26T00:00:00Z"
-                   "&timeMax=2026-04-26T23:59:59Z"
-                   "&singleEvents=true"
-                   "&key=AIzaSyAk8ncBzJtL6fx-SmAn8ZRB_ZlfuzjRQyo";
+int speakerPin = A5; 
+int buttonPin = D2; 
+bool soundPlaying = false; 
 
-    http.get(request, response, headers);
 
-    Serial.printlnf("Status: %d", response.status);
-    Serial.println(response.body);
 
-    parser.addString(response.body);
+void calendarHandler(const char *event, const char *data);
 
-if (parser.parse()) {
-    const JsonParserGeneratorRK::jsmntok_t *itemsArray;
-    if (parser.getValueTokenByKey(parser.getOuterObject(), "items", itemsArray)) {
-
-        const JsonParserGeneratorRK::jsmntok_t *firstItem;
-        if (parser.getValueTokenByIndex(itemsArray, 0, firstItem)) {
-
-            String summary;
-            if (parser.getValueByKey(firstItem, "summary", summary)) {
-                Serial.printlnf("Event: %s", summary.c_str());
-            } else {
-                Serial.println("No summary found.");
-            }
-        } else {
-            Serial.println("No events today.");
-        }
-    } else {
-        Serial.println("No items array in response.");
-    }
-} else {
-    Serial.println("Failed to parse JSON response.");
-}
-}
 
 void setup() {
     Serial.begin(9600);
-    waitFor(Serial.isConnected, 5000);
+    
+    // Give the hardware a second to settle
+    delay(1000);
+
+    // Initialize display with I2C address 0x3C
+    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+
+    display.clearDisplay();
+    display.setTextColor(WHITE);
+    display.display();
+
+    pinMode(speakerPin, OUTPUT);
+    pinMode(buttonPin, INPUT_PULLDOWN); // Pull-down so button reads LOW when pressed
+    
+    Particle.subscribe("hook-response/check_calendar", calendarHandler);
+    Time.zone(-5);
+}
+
+void updateDisplay() {
+    display.clearDisplay();
+    display.setTextColor(WHITE);
+    
+    // Display Time
+    display.setTextSize(1);
+    display.setCursor(10, 10);
+    display.print(Time.format(Time.now(), "%I:%M:%S %p")); 
+
+    // Display Status
+    display.setTextSize(1);
+    display.setCursor(0, 45);
+    if(soundPlaying) {
+        display.print("ALARM ACTIVE!");
+    } else {
+        display.print("Status: Idle"); 
+    }
+
+    display.display();
 }
 
 void loop() {
-    checkCalendar();
-    delay(60000);
+    // Limit display updates so we don't overwhelm the processor
+    static unsigned long lastUpdate = 0;
+    if (millis() - lastUpdate > 500) {
+        lastUpdate = millis();
+        updateDisplay();
+    }
+
+    // Debounce button: check if LOW (pressed) for debounce time
+    static unsigned long lastButtonPress = 0;
+    bool currentButtonState = digitalRead(buttonPin);
+    if (currentButtonState == HIGH && soundPlaying) {
+        noTone(speakerPin);
+        soundPlaying = false;
+        Serial.println("Sound stopped");
+    }
+    
+    static unsigned long lastRequest = 0;
+    if (millis() - lastRequest > 30000) {
+        lastRequest = millis();
+        Particle.publish("check_calendar", PRIVATE);
+    }
+}
+
+
+void calendarHandler(const char *event, const char *data) {
+    if (!data || strlen(data) == 0) {
+        Serial.println("Handler triggered, but data is empty.");
+        return;
+    }
+
+    String response = String(data);
+    
+    // Debug: see exactly what Google sent back
+    Serial.println("Raw Data received: " + response);
+
+    // Look for the "Date" key
+    int dateIndex = response.indexOf("\"Date\": \"");
+    
+    if (dateIndex != -1) {
+        int startPos = dateIndex + 8;
+        int endPos = response.indexOf("\"", startPos);
+        
+        if (endPos != -1) {
+            String eventDate = response.substring(startPos, endPos);
+            Serial.print("Success!");
+            Serial.println(eventDate);
+            // Start playing sound continuously until button is pressed
+            if (!soundPlaying) {
+                tone(speakerPin, 700); // Play continuous tone at 700 Hz
+                soundPlaying = true;
+                Serial.println("Sound started - press button to stop");
+            
+            }
+        }
+    } else {
+        Serial.println("Waiting for an upcoming event to be added to the calendar...");
+    }
 }
