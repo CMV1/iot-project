@@ -66,10 +66,10 @@ List of Files
 
 
 List of Components 
-Particle Photon 2
-1 button
-1 OLED (type: SSD1306)
-1 speaker (cvs 2308)
-11 wires
+* Particle Photon 2
+* 1 button
+* 1 OLED (type: SSD1306)
+* 1 speaker (cvs 2308)
+* 11 wires
 
 https://cmv1.github.io/iot-project/src/index.html <---- go here for life github page
