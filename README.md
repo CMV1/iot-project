@@ -45,7 +45,30 @@ libraries--
     CSS
     Javascript
       -this also pulls a new api token from google
+List of Files
+
+Adafruit_GFX.cpp
+Adafruit_GFX.h
+Adafruit_SSD1306.cpp
+Adafruit_SSD1306.h
+Adafruit_SSD1306_RK.h
+JsonParserGeneratorRK.cpp
+JsonParserGeneratorRK.h
+calendar-webhook.json
+credentials.json
+handler.js
+index.html
+package.json
+project_final.cpp
+styles.css
+token.json
 
 
-    ----self notes---Ellis
-    https://cmv1.github.io/iot-project/src/index.html <---- go here for life github page
+List of Components 
+Particle Photon 2
+1 button
+1 OLED (type: SSD1306)
+1 speaker (cvs 2308)
+11 wires
+
+https://cmv1.github.io/iot-project/src/index.html <---- go here for life github page
