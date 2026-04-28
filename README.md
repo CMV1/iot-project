@@ -9,7 +9,9 @@ The function of this device is to alert the user to know when their task is due 
   How it works
     -The Photon is constantly requesting a task from google's API (This is within time reason)
     -photon request -> middle man -> Server  
-    -When time is around 1 hour, the middle man will activate asking the server for the time then information gets sent back to the photon. 
+    -The photon will request for the next and up comming task/calendar event, the middle man will activate asking the server for the time then information gets sent back to the photon.
+      Since this is an example, we have sped up the code to run every 30 seconds to alert the user. 
+It has a simple clock functionality
 
 
 libraries--
