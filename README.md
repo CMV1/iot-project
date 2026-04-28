@@ -47,21 +47,21 @@ libraries--
       -this also pulls a new api token from google
 List of Files
 
--Adafruit_GFX.cpp
--Adafruit_GFX.h
--Adafruit_SSD1306.cpp
--Adafruit_SSD1306.h
--Adafruit_SSD1306_RK.h
--JsonParserGeneratorRK.cpp
--JsonParserGeneratorRK.h
--calendar-webhook.json
--credentials.json
--handler.js
--index.html
--package.json
--project_final.cpp
--styles.css
--token.json
+- Adafruit_GFX.cpp
+- Adafruit_GFX.h
+- Adafruit_SSD1306.cpp
+- Adafruit_SSD1306.h
+- Adafruit_SSD1306_RK.h
+- JsonParserGeneratorRK.cpp
+- JsonParserGeneratorRK.h
+- calendar-webhook.json
+- credentials.json
+-  handler.js
+- index.html
+- package.json
+- project_final.cpp
+- styles.css
+- token.json
 
 
 
