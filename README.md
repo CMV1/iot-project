@@ -48,12 +48,4 @@ libraries--
 
 
     ----self notes---Ellis
-    
-    Add libraries
-    // particle library add HttpClient
-    // particle library add JsonParserGeneratorRK
-      <!-- --thoughts
-        I couldn't think between whether if I should've used python or javascript, but since python has more user support and guides, I followed through with python.
-         --> This is obsolete it was faster using photon
-         
-         5931df5ebbec8d65811853a01e5bd2a6eec32471
+    https://cmv1.github.io/iot-project/src/index.html <---- go here for life github page
