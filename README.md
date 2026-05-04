@@ -10,15 +10,18 @@ The function of this device is to alert the user to know when their task is due 
     -The Photon is constantly requesting a task from google's API (This is within time reason)
     -photon request -> middle man -> Server  
     -The photon will request for the next and up comming task/calendar event, the middle man will activate asking the server for the time then information gets sent back to the photon.
-      Since this is an example, we have sped up the code to run every 30 seconds to alert the user. 
+    -Since this is an example, we have sped up the code to run every 30 seconds to alert the user.
+    -The goal is to create a positive punishment, an additive of an undesirable stimulus to decrease a behavior, so it allows them to focus on the main task. basically to annoy them until they finish their work before they enojoy their leisure time.
 It has a simple clock functionality, well it is a clock with an alarm
 
 
 
-libraries--
+-libraries--
   Photon - JsonParserGeneratorRK
   https://docs.particle.io/reference/device-os/libraries/j/JsonParserGeneratorRK/
-    This is the bridge for the middleman to contact to google's API to allow request interaction between the photon ->>> middleman "the python script" ->>> online server;then back to photon
+  -This is the bridge for the middleman to contact to google's API to allow request interaction between the
+  -photon ->>> middleman "the python script" ->>> online server;then back to photon
+  - This is what helps GET the JSON texts to be readable for the Photon. Goes through the webhook then Parse.
 
     Adafruit -
     https://docs.particle.io/reference/device-os/libraries/a/Adafruit_SSD1305_RK/
@@ -45,7 +48,7 @@ libraries--
     CSS
     Javascript
       -this also pulls a new api token from google
-List of Files
+-List of Files
 
 - Adafruit_GFX.cpp
 - Adafruit_GFX.h
