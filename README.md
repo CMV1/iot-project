@@ -1,4 +1,4 @@
-Contributors:
+**Contributors:**
   - Ellis Yang
   - Danny Vang
   - Vallerey Luvsangombo
