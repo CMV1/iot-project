@@ -1,7 +1,7 @@
 Contributors:
-- Ellis Yang
-- Danny Vang
-- Vallerey Luvsangombo
+  - Ellis Yang
+  - Danny Vang
+  - Vallerey Luvsangombo
 
 
 - This project is the foundation for a modern task alarm. 
