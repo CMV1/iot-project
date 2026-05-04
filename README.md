@@ -1,17 +1,17 @@
 Contributors:
-Ellis Yang
-Danny Vang
-Vallerey Luvsangombo
+- Ellis Yang
+- Danny Vang
+- Vallerey Luvsangombo
 
 
-This project is the foundation for a modern task alarm. 
+- This project is the foundation for a modern task alarm. 
 The function of this device is to alert the user to know when their task is due or upcoming
   How it works
-    -The Photon is constantly requesting a task from google's API (This is within time reason)
-    -photon request -> middle man -> Server  
-    -The photon will request for the next and up comming task/calendar event, the middle man will activate asking the server for the time then information gets sent back to the photon.
-    -Since this is an example, we have sped up the code to run every 30 seconds to alert the user.
-    -The goal is to create a positive punishment, an additive of an undesirable stimulus to decrease a behavior, so it allows them to focus on the main task. basically to annoy them until they finish their work before they enojoy their leisure time.
+    - The Photon is constantly requesting a task from google's API (This is within time reason)
+    - photon request -> middle man -> Server  
+    - The photon will request for the next and up comming task/calendar event, the middle man will activate asking the server for the time then information gets sent back to the photon.
+    - Since this is an example, we have sped up the code to run every 30 seconds to alert the user.
+    - The goal is to create a positive punishment, an additive of an undesirable stimulus to decrease a behavior, so it allows them to focus on the main task. basically to annoy them until they finish their work before they enojoy their leisure time.
 It has a simple clock functionality, well it is a clock with an alarm
 
 
@@ -32,23 +32,23 @@ It has a simple clock functionality, well it is a clock with an alarm
     
 
   -----Applications
-  Google cloud 
-   Google Workspace
-    Google calendar API 
-      Its a REST API
-  C++
-    Particle Photon 2
-  JSON 
-    functionality:
-      Request then pull
-        To know what type of information to pull
+  *Google cloud 
+   ** Google Workspace
+    *** Google calendar API 
+      **** Its a REST API
+ * C++
+   ** Particle Photon 2
+ * JSON 
+  **  functionality:
+    ***  Request then pull
+     ***   To know what type of information to pull
 
-  web stuff
-    HTML
-    CSS
-    Javascript
-      -this also pulls a new api token from google
--List of Files
+  *web stuff
+   ** HTML
+   ** CSS
+   ** Javascript
+      - this also pulls a new api token from google
+- List of Files
 
 - Adafruit_GFX.cpp
 - Adafruit_GFX.h
