@@ -13,7 +13,7 @@ libraries that are used are jsonparser
         also google doesnt like it if you are begging every 10 seconds  lolol
 
         PLEASE DO NOT USE DIGITAL ANALOG FOR SOUND
-        A0 -A5  WORKS PERFECTLY FINE
+        A0 - A5  WORKS PERFECTLY FINE
 
         THE SCREEN PMO LIKE IT GENUINELY MADE MY BRAIN EXPLODE 
         like it was easy to implement because it would use screen print

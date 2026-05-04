@@ -12,7 +12,7 @@ int speakerPin = A5;
 int buttonPin = D2; 
 bool soundPlaying = false; 
 
-// --- NEW CLOUD VARIABLES ---
+// --- CLOUD VARIABLES --- 
 String cloudStatus = "Idle";
 String lastEventDate = "None";
 String eventnamed = "None";
@@ -41,7 +41,7 @@ void setup() {
     Particle.subscribe("hook-response/check_calendar", calendarHandler);
     Time.zone(-5);
 }
-
+//this is for the display
 void updateDisplay() {
     display.clearDisplay();
     display.setTextColor(WHITE);
@@ -49,7 +49,7 @@ void updateDisplay() {
     display.setTextSize(1);
     display.setCursor(10, 10);
     display.print(Time.format(Time.now(), "%I:%M:%S %p")); 
-
+    
     display.setTextSize(1);
     display.setCursor(0, 45);
     if(soundPlaying) {
@@ -61,24 +61,27 @@ void updateDisplay() {
         cloudStatus = "Idle";         // Update cloud string
         cloudSoundState = 0;          // Update cloud int
     }
-
+    
+    //It can display time and the event name on screen
     display.display();
 }
 
 void loop() {
+
+    //loop for time display, realtime CT
     static unsigned long lastUpdate = 0;
     if (millis() - lastUpdate > 500) {
         lastUpdate = millis();
         updateDisplay();
     }
-
+    //loop to stop time
     bool currentButtonState = digitalRead(buttonPin);
     if (currentButtonState == HIGH && soundPlaying) {
         noTone(speakerPin);
         soundPlaying = false;
         Serial.println("Sound stopped");
     }
-    
+    //loop for calendar requests 
     static unsigned long lastRequest = 0;
     if (millis() - lastRequest > 30000) {
         lastRequest = millis();
@@ -86,6 +89,7 @@ void loop() {
     }
 }
 
+//this is whats called to GET the name of events(variables) to print
 void calendarHandler(const char *event, const char *data) {
     if (!data || strlen(data) == 0) {
         return;
@@ -94,13 +98,15 @@ void calendarHandler(const char *event, const char *data) {
     String response = String(data);
 
     int nameIndex = -1;
+    //looks for category items in the JSON PULL then sorts for summry, then moves on to the next category 
     int itemsIndex = response.indexOf("\"items\"");
     if (itemsIndex != -1) {
         nameIndex = response.indexOf("\"summary\"", itemsIndex);
-    }
+    }//fall back
     if (nameIndex == -1) {
         nameIndex = response.indexOf("\"summary\"");
     }
+    //if doesn't find "summary" after "items", it searches the whole string
     if (nameIndex != -1) {
         int colonPos = response.indexOf(":", nameIndex);
         if (colonPos != -1) {
@@ -120,19 +126,19 @@ void calendarHandler(const char *event, const char *data) {
         int endPos = response.indexOf("\"", startPos);
         if (endPos != -1) {
             lastEventDate = response.substring(startPos, endPos); // Store for Cloud
-            if (!soundPlaying) {
+            if (!soundPlaying) {//Play sound
                 tone(speakerPin, 700);
                 soundPlaying = true;
             }
         }
-    } else {
+    } else {//Fall back for when failure 
         int oldDateIndex = response.indexOf("\"Date\": \"");
         if (oldDateIndex != -1) {
             int startPos = oldDateIndex + 9;
             int endPos = response.indexOf("\"", startPos);
             if (endPos != -1) {
                 lastEventDate = response.substring(startPos, endPos); // Store for Cloud
-                if (!soundPlaying) {
+                if (!soundPlaying) {//Play sound
                     tone(speakerPin, 700);
                     soundPlaying = true;
                 }
